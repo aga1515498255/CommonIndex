@@ -1,11 +1,11 @@
 <template>
 
   
-            <ul class="nav-list">
-                  <li v-for="route in constantRoutes" v-show="route.hidden == false">
-                        <RouterLink :to="route.path" ><el-text  class="mx-1 "> {{t("navigatorBar."+route.name)}}</el-text></RouterLink>
-                  </li>
-            </ul>
+      <ul class="nav-list">
+            <li v-for="route in constantRoutes" v-show="route.hidden == false">
+                  <RouterLink :to="route.path" ><el-text  class="mx-1 "> {{t("navigatorBar."+route.name)}}</el-text></RouterLink>
+            </li>
+      </ul>
 
     <!-- <el-row align="middle" >
         <el-col :span="2" v-for="route in constantRoutes" class="route-link">
@@ -21,7 +21,6 @@ import { RouterLink} from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
 const {t}  = useI18n()
-
 
 </script>
 
