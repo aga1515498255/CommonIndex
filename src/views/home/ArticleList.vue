@@ -46,7 +46,7 @@ const items = ref([])
 
 onBeforeMount(()=>{
     allArticles().then((res)=>{
-        items.value = res.data.data
+        items.value = res.data
     })
 })
 </script>

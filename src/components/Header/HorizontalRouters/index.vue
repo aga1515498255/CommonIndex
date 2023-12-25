@@ -1,8 +1,6 @@
 <template>
-
-  
       <ul class="nav-list">
-            <li v-for="route in constantRoutes" v-show="route.hidden == false">
+            <li v-for="route in routes" v-show="route.hidden == false">
                   <RouterLink :to="route.path" ><el-text  class="mx-1 "> {{t("navigatorBar."+route.name)}}</el-text></RouterLink>
             </li>
       </ul>
@@ -16,11 +14,18 @@
     </el-row> -->
 </template>
 <script setup>
-import {constantRoutes} from '../../../router'
+// import {constantRoutes} from '../../../router'
 import { RouterLink} from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
+import { computed } from 'vue';
 
 const {t}  = useI18n()
+const store = useStore()
+let routes = computed(()=>{
+      return store.getters.routes
+}) 
+console.log("routes is ",routes)
 
 </script>
 

@@ -1,8 +1,8 @@
 
-const LocalStorageKeys = {
+export const LocalStorageKeys = {
     token : "JwtToken"
 }
 
 export function getLocalToken(){
-    localStorage.getItem(LocalStorageKeys.token);
+    return localStorage.getItem(LocalStorageKeys.token);
 }

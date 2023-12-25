@@ -37,9 +37,8 @@
 
 </template>
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+
 import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue'
-import { defineComponent} from 'vue';
 import HorizontalRouters from "./HorizontalRouters/index.vue"
 import { useI18n } from 'vue-i18n'
 
@@ -54,7 +53,3 @@ function changeLanguage(flag){
 
 
 </script>
-
-<style scoped>
-
-</style>

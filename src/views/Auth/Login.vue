@@ -11,15 +11,15 @@
       <el-button type="primary" @click="onSubmit">login</el-button>
       <el-button>Cancel</el-button>
     </el-form-item>
-
     </el-form>
 </template>
   
 <script setup>
   import { ref ,reactive} from 'vue';
-  import Keys from "../../common/LocalStorageKey"
+  import {LocalStorageKeys} from "@/common/LocalStroageUtil.js"
   import axios from "axios"
   import { useStore } from "vuex";
+  import router from "@/router"
 
   const store = useStore()
 
@@ -35,8 +35,9 @@
         console.log(res)
         let token = res.data.data.Authorization
         axios.defaults.headers.common['Authorization'] = token;
-        localStorage.setItem(Keys.token,token);
+        localStorage.setItem(LocalStorageKeys.token,token);
         store.commit('setIslogin',true)
+        router.push({path:"/"})
       })
     .catch((err)=>{
       console.log(err)

@@ -5,6 +5,8 @@ import permission from './modules/permission';
 
 const gettter = {
   permissions: state => state.user.permissions,
+  routes:state => state.permission.routes,
+  isLogin:state => state.user.isLogin
 }
 
 // 创建一个新的 store 实例
@@ -14,9 +16,12 @@ const store = createStore(
       user,
       permission
     },
-    getters:gettter
+    getters:gettter,
+    actions:{
+      init(state){
+        
+      }
+    }
   }
 )
-
-
 export default store;

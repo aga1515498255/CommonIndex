@@ -1,8 +1,8 @@
 import { constantRoutes } from "../../router"
 import { useStore } from 'vuex'
 import { dynamicRoutes } from "../../router"
+import router from "@/router"
 
-const store = useStore()
 
 const permission={
     state:{
@@ -15,27 +15,29 @@ const permission={
         },
       },
     actions: {
-        GenerateRoutes({ commit }) {
-            const routesToAdd  =filterRoutes()
+        GenerateRoutes({ commit },permissions) {
+           
+            const routesToAdd  = filterRoutes(permissions)
+            console.log("in GenerateRoutes routesToAdd is ",routesToAdd)
             commit('SET_ROUTES', routesToAdd)
         }
     }
-
 }
 
 
-function filterRoutes(){
+function filterRoutes(permissions){
     const all_permission = "*:*:*";
 
     let routes = []
-    const permissions = store.getters && store.getters.permissions
+    // const permissions =  store.getters.permissions
     dynamicRoutes.forEach(el => {
         if (el.permission.some(permissionInNeed => {
            return permissions.some(permissionOwned => {
-            permissionOwned === all_permission || permissionOwned === permissionInNeed
+             return  permissionOwned === all_permission || permissionOwned === permissionInNeed
             })
         })){
             routes.push(el)
+            router.addRoute(el)
         }
     });
     return routes

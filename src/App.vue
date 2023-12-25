@@ -1,13 +1,37 @@
-<script setup>
-import { RouterView } from 'vue-router'
-import HeaderBar from "./components/Header/HeaderBar.vue"
-import {useHandleResize} from "./layout/HandleResize"
-useHandleResize()
+<script>
+// import { RouterView } from 'vue-router'
+// import HeaderBar from "./components/Header/HeaderBar.vue"
+import {useHandleResize} from "@/layout/HandleResize"
+import {useMeta} from "vue-meta"
+import Layout from "@/layout/index.vue"
+
+  // useHandleResize()
+  export default{
+    components:{
+        Layout
+    },
+    setup() {
+      useHandleResize()
+      useMeta(
+          {
+          title: import.meta.env.VITE_APP_NAME,
+        }
+      )
+    }
+
+  }
+  
 </script>
 
 <template>
 
-  <el-container>
+  <metainfo>
+    <template v-slot:title="{ content }">{{ content ? `${content}` : `Common Index` }}</template>
+  </metainfo>
+
+
+  <Layout/>
+  <!-- <el-container>
   
 
     <el-header >
@@ -28,18 +52,12 @@ useHandleResize()
       </el-row>
     </el-main>
     
-  </el-container>
+  </el-container> -->
   
   
 </template>
 
 <style scoped>
 
-.el-header{
-
-    /* background-color: white; */
-    padding: 0;
-
-}
 
 </style>

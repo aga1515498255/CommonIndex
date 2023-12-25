@@ -5,9 +5,6 @@ const { body } = document
 const WIDTH = 992 
 
 export function useHandleResize() {
-
-
-
     function _isMobile(){
       const rect = body.getBoundingClientRect()
       return rect.width - 1 < WIDTH
