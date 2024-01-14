@@ -16,10 +16,15 @@ const permission={
       },
     actions: {
         GenerateRoutes({ commit },permissions) {
-           
+           return new Promise((resovle)=>{
             const routesToAdd  = filterRoutes(permissions)
             console.log("in GenerateRoutes routesToAdd is ",routesToAdd)
             commit('SET_ROUTES', routesToAdd)
+
+            // return routesToAdd;
+            resovle(routesToAdd)
+           })
+            
         }
     }
 }
@@ -31,13 +36,13 @@ function filterRoutes(permissions){
     let routes = []
     // const permissions =  store.getters.permissions
     dynamicRoutes.forEach(el => {
-        if (el.permission.some(permissionInNeed => {
+        if (el.permission && el.permission.some(permissionInNeed => {
            return permissions.some(permissionOwned => {
              return  permissionOwned === all_permission || permissionOwned === permissionInNeed
             })
         })){
             routes.push(el)
-            router.addRoute(el)
+            // router.addRoute(el)
         }
     });
     return routes

@@ -7,7 +7,7 @@
           文章标题中文   
           <el-button type="success" :class="save_button" @click="saveArticle">保存</el-button>
         </el-row>
-        <el-row><el-input v-model="tittleZh" placeholder="Please input" /></el-row>
+        <el-row>+</el-row>
         <el-row justify="space-between">
           文章标题英文 
         </el-row>
@@ -31,11 +31,11 @@
     </el-row>
     <el-row>中文正文</el-row>
     <el-row>
-     <MdEditor v-model="contentZh" @onUploadImg="onUploadImg"/>
+     <MdEditor v-model="contentZh" @onUploadImg="onUploadImg1" editorId="contentZh"/>
     </el-row>
     <el-row>英文正文</el-row>
     <el-row>
-     <MdEditor v-model="contentEn" @onUploadImg="onUploadImg"/>
+     <MdEditor v-model="contentEn" @onUploadImg="onUploadImg1" editorId="contentEn"/>
     </el-row>
   </el-col>
   </el-card>
@@ -45,24 +45,37 @@
 </template>
   
 <script >
-  import { defineComponent} from 'vue';
-  import { MdEditor } from 'md-editor-v3';
+  import { defineComponent ,ref} from 'vue';
+  import { MdEditor  } from 'md-editor-v3';
   import 'md-editor-v3/lib/style.css';
   import axios, { Axios } from "axios"
   import { ElMessage } from 'element-plus'
   import { Plus } from '@element-plus/icons-vue'
   import { ElNotification } from 'element-plus'
 
+  const contentZh =  ref("# 这是标题")
+  const contentEn= ref("# 这是标题")
 
-  const onUploadImg = async (files, callback) => {
+  const uploadURL = import.meta.env.VITE_BACKEND_PREFIX+'/image/upload'
+
+
+  console.log("md1 is")
+  console.log( MD1)
+  console.log("md2 is")
+  console.log(MD2)
+
+  const onUploadImg1 = async (files, callback) => {
     const res = await Promise.all(
       files.map((file) => {
         return new Promise((rev, rej) => {
           const form = new FormData();
           form.append('image', file);
 
+
+          console.log(form)
+
           axios
-            .post(import.meta.env.VITE_BACKEND_PREFIX+'/image/upload', form, {
+            .post(uploadURL, form, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -77,8 +90,42 @@
       })
     );
 
+
+
+    console.log(res)
+    console.log("in onUploadImg2 callback is ",callback)
+    callback(res.map((item) => import.meta.env.VITE_BACKEND_PREFIX + item.data.data.url));
+  }
+
+  const onUploadImg2 = async (files, callback) => {
+    const res = await Promise.all(
+      files.map((file) => {
+        return new Promise((rev, rej) => {
+          const form = new FormData();
+          form.append('image', file);
+
+
+          axios
+            .post(uploadURL, form, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            })
+            .then((res) => {
+              console.log(res)
+              let url = res.data.data.url
+              rev(res)
+            })
+            .catch((error) => rej(error));
+        });
+      })
+    );
+
+    console.log(res)
+    console.log("in onUploadImg2 callback is ",callback)
     callback(res.map((item) => import.meta.env.VITE_BACKEND_PREFIX + item.data.data.url));
   };
+
   export default defineComponent({
   name: "App",
   components: {
@@ -87,8 +134,8 @@
   },
   data() {
     return {
-      contentZh: "# 这是标题",
-      contentEn: "# 这是标题",
+      contentZh,
+      contentEn,
       uploadAPI: import.meta.env.VITE_BACKEND_PREFIX+'/image/upload',
       uploadHeaders:{
         Authorization:axios.defaults.headers.common['Authorization']
@@ -99,10 +146,12 @@
     };
   },
   methods: {
-    onUploadImg,
+    onUploadImg1,
+    // onUploadImg2,
     handleAvatarSuccess(
       response,
-      uploadFile
+      uploadFile,
+      
     ) {
       console.log("res is:" + response)
       console.log(response)
@@ -132,9 +181,7 @@
         },
         (rej)=>{
           // console.log(rej)
-        })
-                  
-      
+        })        
     }
   }
 });

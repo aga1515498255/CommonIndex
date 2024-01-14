@@ -46,7 +46,7 @@
             </el-row>
 
             <el-dialog v-model="dialogVisible" title="添加轮播图" width="75%">
-            <el-table  :data="articleList" style="width: 100%" >
+            <!-- <el-table  :data="articleList" style="width: 100%" >
                 <el-table-column prop="id" label="ID" width="180" />
                 <el-table-column prop="tittleZh" label="tittleZh" width="180" />
                 <el-table-column prop="tittleEn" label="tittleEn" width="180" />
@@ -65,7 +65,8 @@
                     </template>
                 </el-table-column>
 
-            </el-table>
+            </el-table> -->
+                <ArticleList/>
                 <template #footer>
                     <span class="dialog-footer">
                         <el-button @click="dialogFormVisible = false">Cancel</el-button>
@@ -81,6 +82,7 @@
 import { getAllCarousels,addToCarousels,deleteCarousels} from '../api/appIndex';
 import {allArticles} from "../api/article.js"
 import { ref,onBeforeMount } from "vue";
+import ArticleList from "@/components/Article/index.vue"
 
 let items = ref([])
 let dialogVisible = ref(false)
