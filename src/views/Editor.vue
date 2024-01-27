@@ -7,11 +7,30 @@
           文章标题中文   
           <el-button type="success" :class="save_button" @click="saveArticle">保存</el-button>
         </el-row>
-        <el-row>+</el-row>
+        <el-row><el-input v-model="tittleZh" placeholder="Please input" /></el-row>
         <el-row justify="space-between">
           文章标题英文 
         </el-row>
         <el-row><el-input v-model="tittleEn" placeholder="Please input" /></el-row>
+        <el-row justify="space-between">
+          中文简介
+        </el-row>
+        <el-row> <el-input
+    v-model="breifZh"
+    :rows="2"
+    type="textarea"
+    placeholder="Please input"
+  /></el-row>
+
+  <el-row justify="space-between">
+          英文简介
+        </el-row>
+        <el-row> <el-input
+    v-model="breifEn"
+    :rows="2"
+    type="textarea"
+    placeholder="Please input"
+  /></el-row>
         <el-row>文章封面</el-row>
         <el-row>
           <el-upload
@@ -59,10 +78,6 @@
   const uploadURL = import.meta.env.VITE_BACKEND_PREFIX+'/image/upload'
 
 
-  console.log("md1 is")
-  console.log( MD1)
-  console.log("md2 is")
-  console.log(MD2)
 
   const onUploadImg1 = async (files, callback) => {
     const res = await Promise.all(
@@ -143,6 +158,8 @@
       imageUrl:null,
       tittleEn:null,
       tittleZh:null,
+      breifZh:"",
+      breifEn:"",
     };
   },
   methods: {
@@ -166,7 +183,9 @@
         tittleZh:this.tittleZh,
         cover:this.imageUrl,
         contentZh:this.contentZh,
-        contentEn:this.contentEn
+        contentEn:this.contentEn,
+        breifEn:this.breifEn,
+        breifZh:this.breifZh,
       }
 
       axios.post(import.meta.env.VITE_BACKEND_PREFIX+"/article/create",article)

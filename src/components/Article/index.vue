@@ -17,7 +17,7 @@ const articleList = ref([])
 onBeforeMount(()=>{
     allArticles().then((res)=>{
         console.log(res)
-        articleList.value = res.data.data
+        articleList.value = res.data
         console.log(articleList)
     })
 })

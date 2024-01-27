@@ -40,7 +40,7 @@ const items = ref([])
 
 onBeforeMount(()=>{
     getAllCarousels().then((res)=>{
-        items.value = res.data.data
+        items.value = res.data
     })
 })
 

@@ -46,31 +46,13 @@
             </el-row>
 
             <el-dialog v-model="dialogVisible" title="添加轮播图" width="75%">
-            <!-- <el-table  :data="articleList" style="width: 100%" >
-                <el-table-column prop="id" label="ID" width="180" />
-                <el-table-column prop="tittleZh" label="tittleZh" width="180" />
-                <el-table-column prop="tittleEn" label="tittleEn" width="180" />
-                <el-table-column prop="delFlag" label="delFlag" width="180" />
-                <el-table-column prop="createTime" label="createTime" width="180" />
-                <el-table-column fixed="right" label="Operations" width="120">
-                    <template #default="scope">
-                    <el-button
-                        link
-                        type="primary"
-                        size="small"
-                        @click.prevent="addToCarousel(scope.row.id)"
-                    >
-                        ADD
-                    </el-button>
-                    </template>
-                </el-table-column>
+    
+                <Cell :articles = "articleList" uiType = "CardCell" v-model="selectedArticles"></Cell>
 
-            </el-table> -->
-                <ArticleList/>
                 <template #footer>
                     <span class="dialog-footer">
-                        <el-button @click="dialogFormVisible = false">Cancel</el-button>
-                        <el-button type="primary" @click="dialogFormVisible = false">
+                        <el-button @click="handleCancelAdd">Cancel</el-button>
+                        <el-button type="primary" @click="handleConfimAdd">
                         Confirm
                         </el-button>
                     </span>
@@ -82,16 +64,34 @@
 import { getAllCarousels,addToCarousels,deleteCarousels} from '../api/appIndex';
 import {allArticles} from "../api/article.js"
 import { ref,onBeforeMount } from "vue";
-import ArticleList from "@/components/Article/index.vue"
+import Cell from "@/components/Cell/index.vue"
+
 
 let items = ref([])
 let dialogVisible = ref(false)
 const articleList = ref([])
+const selectedArticles = ref([])
 
 function getCarousels(){
   getAllCarousels().then((res)=>{
-        items.value = res.data.data
+        items.value = res.data
     })
+}
+
+function handleConfimAdd(){
+    addToCarousels(selectedArticles.value).then((res)=>{
+        console.log(res)
+        dialogVisible = false
+
+        getCarousels()
+    })
+}
+
+function handleCancelAdd(){
+
+    console.log("in cancel")
+    selectedArticles.value = []
+    dialogVisible = false
 }
 
 function deleteCarouselItem(id){
@@ -106,25 +106,14 @@ function deleteCarouselItem(id){
 onBeforeMount(()=>{
     allArticles().then((res)=>{
         console.log(res)
-        articleList.value = res.data.data
+        articleList.value = res.data
         console.log(articleList)
     })
 
     getCarousels()
+
 })
 
-
-
-
-function addToCarousel(articleId){
-  const data = {
-    articleId:articleId
-  }
-  addToCarousels(data).then((res)=>{
-    console.log("in addToCarousel res is ",res)
-    getCarousels()
-  })
-}
 </script>
 <style scoped>
 .card-header {

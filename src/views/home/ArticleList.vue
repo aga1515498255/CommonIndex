@@ -1,5 +1,5 @@
 <template>
-    <el-card>
+    <!-- <el-card>
         <el-row v-for="item in items">
             <el-col :span="24">
                     <el-row justify="space-between" align="middle">
@@ -33,14 +33,14 @@
             <el-divider />
         </el-row>
        
-    </el-card>
-
+    </el-card> -->
+    <Cell :articles="items" uiType="RowCell"></Cell>
 </template>
 
 <script setup>
 import { allArticles } from '../../api/article';
 import { ref,onBeforeMount } from 'vue';
-
+import Cell from "@/components/Cell/index.vue"
 
 const items = ref([])
 
