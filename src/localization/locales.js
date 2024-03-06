@@ -7,7 +7,14 @@ const messages = {
             home:"Home",
             editor:"Editor",
             login:"Login",
-            sysindex:"Index Management"
+            sysindex:"Index Management",
+            tag:"Tag",
+            blockIndex:"block Index",
+            blockEditor:"Block Editor",
+            contact:"Contact Us"
+        },
+        contact:{
+            contactName:"Contact"
         }
     },
     zh:{
@@ -15,7 +22,14 @@ const messages = {
             home:"主页",
             editor:"文章编辑",
             login:"登录",
-            sysindex:"主页管理"
+            sysindex:"主页管理",
+            tag:"标签管理",
+            blockIndex:"blockIndex",
+            blockEditor:"主页编辑",
+            contact:"联系我们"
+        },
+        contact:{
+            contactName:"联系人"
         }
     }
 }

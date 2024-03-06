@@ -19,6 +19,33 @@ export const constantRoutes = [
     component: () => import('../views/Auth/Login.vue'),
     hidden:true
   },
+  {
+    path: '/blockIndex',
+    name: 'blockIndex',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/testPage/BlockIndex.vue'),
+    hidden:false
+  },
+  {
+    path: '/blockEditor',
+    name: 'blockEditor',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/BlockEditor/index.vue'),
+    hidden:false
+  },
+  {
+    path: '/contact',
+    name: 'contact',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/Contract/Contact.vue'),
+    hidden:false
+  },
 
   // {
   //   name: '404',
@@ -56,6 +83,16 @@ export const dynamicRoutes = [
     component: () => import('../views/SysIndex.vue'),
     hidden:false,
     permission:["index:edit"]
+  },
+  {
+    path: '/tag',
+    name: 'tag',
+    // route level code-splitting
+    // this generates a separate chunk (About.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('@/views/tag/index.vue'),
+    hidden:false,
+    permission:["tag:list"]
   },
 
 

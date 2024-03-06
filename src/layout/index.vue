@@ -4,7 +4,9 @@
   
 
 
-    <div class="app-sideBar" v-if="islogin"></div>
+    <div class="app-sideBar" v-if="islogin">
+        <Menu></Menu>
+    </div>
 
     <div class="app-header">
         <HeaderBar />
@@ -18,7 +20,7 @@
     <el-scrollbar >
         <el-row justify="space-around">
 
-            <el-col :span="18" >
+            <el-col :span="18" class="content">
 
                 <RouterView />
 
@@ -42,6 +44,7 @@
 import { RouterView } from 'vue-router'
 import HeaderBar from "@/components/Header/HeaderBar.vue"
 import store from "@/store/index.js"
+import Menu from "./menu/index.vue"
 
 const islogin = store.getters.isLogin;
 </script>
@@ -54,8 +57,7 @@ const islogin = store.getters.isLogin;
     z-index: 50;
 }
 .app-sideBar{
-    width: 150px;
-    background-color: black;
+
     float: left;
     height: 100vh;
 }
@@ -63,6 +65,12 @@ const islogin = store.getters.isLogin;
     padding-top: 80px;
     width: 100%;
     height: 100vh;
+
+}
+.content{
+    background-color: white;
+    padding: 15px;
+    border: 1px solid 	#D3D3D3;
 }
 
 

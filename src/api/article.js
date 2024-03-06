@@ -13,3 +13,11 @@ export function createArticle(data){
         data
     })
 }
+
+export function getArticlesByTags(data){
+    return service({
+        url:"//article/getByTagKeys",
+        method:"post",
+        data
+    })
+}

@@ -5,7 +5,7 @@
         <el-col :span="1">  <el-icon :class="logo" :size="26"><ElementPlus /></el-icon></el-col>
         <el-col :span="17">
 
-            <HorizontalRouters/>
+            <!-- <HorizontalRouters/> -->
 
         </el-col>
         <el-col :span="6" >
@@ -48,6 +48,7 @@ function changeLanguage(flag){
 
     locale.value = flag
     // t.locale = locale
+    
 }
 
 

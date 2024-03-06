@@ -1,26 +1,69 @@
 <template>
 
-<el-table ref="multipleTableRef" :data="articleList" style="width: 100%" >
-    <el-table-column type="selection" width="55" />
-    <el-table-column prop="id" label="Date" width="180" />
-    <el-table-column prop="tittleZh" label="tittleZh" width="180" />
-    <el-table-column prop="tittleEn" label="tittleEn" width="180" />
-    <el-table-column prop="delFlag" label="delFlag" width="180" />
-    <el-table-column prop="createTime" label="createTime" width="180" />
-</el-table>
+    <Cell  v-model="selectedItems" :articles="articleList" uiType = "InfoCell"></Cell>
+
+
 </template>
 <script setup>
-import {allArticles} from "../../api/article.js"
-import { ref,onBeforeMount } from "vue";
+import {allArticles,getArticlesByTags as getArticlesByTagsApi} from "../../api/article.js"
+import { ref,onBeforeMount,defineModel,toRef,watch } from "vue";
+
+import Cell from "@/components/Cell/index.vue"
+
+const props = defineProps(['tags','uiType'])
 
 const articleList = ref([])
-onBeforeMount(()=>{
-    allArticles().then((res)=>{
-        console.log(res)
-        articleList.value = res.data
-        console.log(articleList)
-    })
-})
+const selectedItems = defineModel({ default: undefined })
+const tags =  toRef(props,"tags") 
+
+// onBeforeMount(()=>{
+
+//     console.log("in aritcle onBeforeMount")
+
+//         allArticles().then((res)=>{
+//                 console.log("in aritcles")
+//             console.log(res)
+//             articleList.value = res.data
+//             console.log(articleList)
+//         })
+ 
+// })
+
+watch(
+    tags,
+    async () => {
+
+        console.log("in aritcle watch tags is", tags.value)
+
+        if(tags.value == [] || tags.value == null || tags.value == undefined){
+
+            console.log("in if a")
+            await allArticles().then((res)=>{
+                console.log("in aritcles")
+                console.log(res)
+                articleList.value = res.data
+                console.log(articleList)
+            })
+
+        }else{
+            await getArticlesByTagsApi().then((res)=>{
+                console.log(res)
+                articleList.value = res.data
+                console.log(articleList)
+            })
+        }
+
+    },
+    { immediate: true ,deep:true}
+)
+
+function getArticlesByTags(){
+    getArticlesByTagsApi().then((res)=>{
+            console.log(res)
+            articleList.value = res.data
+            console.log(articleList)
+        })
+}
 
 
 function showMultipleTableRef(){
