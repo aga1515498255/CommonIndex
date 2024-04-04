@@ -7,3 +7,12 @@ export function allContact(){
         method:"get"
     })
 }
+
+
+export function addContact(data){
+    return service({
+        url:"/contract/add",
+        method:"post",
+        data
+    })
+}

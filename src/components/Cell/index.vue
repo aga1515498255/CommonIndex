@@ -1,8 +1,8 @@
 <template>
-    <el-row v-if="props.uiType == 'CardCell'" :gutter="20">
+    <el-row v-if="props.uiType == 'CardCell'" :gutter="10">
         <el-col v-for=" article in articles" :span = "6" @click="function(e){if (selectedItems) handleClickItem(article.id) }"  :key="article.id"> 
             <CardCell  :article="article" 
-                    :isSelected="selectedItems != undefined &&  isSelected(article.id).value " 
+                    :isSelected="selectedItems != undefined &&  isSelected(article.id).value" 
                     :selectedMode="selectedItems != undefined" >
             </CardCell>
         </el-col>
@@ -27,6 +27,16 @@
         </el-col>
     </el-row>
 
+    <el-row v-if="props.uiType == 'CarouselCell'" :gutter="20" >
+        <el-col  :span = "24"> 
+            <el-carousel trigger="click" >
+                <el-carousel-item v-for="item in articles" :key="item.id">
+                    <CarouselCell :item="item" ></CarouselCell>
+                </el-carousel-item>
+            </el-carousel>
+        </el-col>
+    </el-row>
+
     <el-text v-if="articles.length == 0 || articles == undefined || articles == null">
         暂无数据
     </el-text>
@@ -34,11 +44,8 @@
 <script setup>
 
 import { defineAsyncComponent,defineModel ,computed} from 'vue'
-
 const props = defineProps(['articles','uiType'])
 console.log(props)
-
-
 
 const CardCell = defineAsyncComponent(() =>
     import('@/components/Cell/CardCell.vue')
@@ -50,6 +57,10 @@ const RowCell = defineAsyncComponent(() =>
 
 const InfoCell = defineAsyncComponent(() =>
   import('@/components/Cell/InfoCell.vue')
+)
+
+const CarouselCell = defineAsyncComponent(() =>
+  import('@/components/Cell/CarouselCell.vue')
 )
 
 const selectedItems = defineModel({ default: undefined })

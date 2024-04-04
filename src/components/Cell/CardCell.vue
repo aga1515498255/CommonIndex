@@ -4,9 +4,9 @@
             <el-icon v-if="props.isSelected"><Check /></el-icon>
         </div>
         <div >
-            <el-row><img :src="article.cover" alt="" height="150" width="200"></el-row>
-            <el-row><el-text class="mx-1" size="large">{{article.tittleZh}}</el-text></el-row>
-            <el-row><el-text class="mx-1" type="info" size="small"  line-clamp="4">{{article.breifZh}}</el-text></el-row>
+            <el-row><img :src="article.cover" alt="" height="120" ></el-row>
+            <el-row><el-text  size="large">{{article.tittleZh}}</el-text></el-row>
+            <el-row ><el-text  type="info" size="small"  line-clamp="3" >{{article.breifZh}}</el-text></el-row>
          </div>
     </div>
 </template>
@@ -20,8 +20,8 @@ console.log(props.selectedMode)
     
 <style scoped>
 .CardCell{
-    border:1px solid black;
-    border-radius: 15px;
+    border:1px solid 	#D3D3D3;
+    border-radius: 10px;
     overflow:hidden;
     padding: 10px;
     height: 100%;
@@ -35,7 +35,6 @@ console.log(props.selectedMode)
 
 .selected{
 
-    
     background-color: skyblue;
 }
 

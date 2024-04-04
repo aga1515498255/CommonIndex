@@ -1,20 +1,20 @@
 <template>
 
-    <Cell  v-model="selectedItems" :articles="articleList" uiType = "InfoCell"></Cell>
+    <Cell v-model="selectedItems" :articles="articleList" uiType="InfoCell"></Cell>
 
 
 </template>
 <script setup>
-import {allArticles,getArticlesByTags as getArticlesByTagsApi} from "../../api/article.js"
-import { ref,onBeforeMount,defineModel,toRef,watch } from "vue";
+import { allArticles, getArticlesByTags as getArticlesByTagsApi } from "../../api/article.js"
+import { ref, defineModel, toRef, watch } from "vue";
 
 import Cell from "@/components/Cell/index.vue"
 
-const props = defineProps(['tags','uiType'])
+const props = defineProps(['tags', 'uiType'])
 
 const articleList = ref([])
 const selectedItems = defineModel({ default: undefined })
-const tags =  toRef(props,"tags") 
+const tags = toRef(props, "tags")
 
 // onBeforeMount(()=>{
 
@@ -26,7 +26,7 @@ const tags =  toRef(props,"tags")
 //             articleList.value = res.data
 //             console.log(articleList)
 //         })
- 
+
 // })
 
 watch(
@@ -35,18 +35,18 @@ watch(
 
         console.log("in aritcle watch tags is", tags.value)
 
-        if(tags.value == [] || tags.value == null || tags.value == undefined){
+        if (tags.value == [] || tags.value == null || tags.value == undefined) {
 
             console.log("in if a")
-            await allArticles().then((res)=>{
+            await allArticles().then((res) => {
                 console.log("in aritcles")
                 console.log(res)
                 articleList.value = res.data
                 console.log(articleList)
             })
 
-        }else{
-            await getArticlesByTagsApi().then((res)=>{
+        } else {
+            await getArticlesByTagsApi().then((res) => {
                 console.log(res)
                 articleList.value = res.data
                 console.log(articleList)
@@ -54,19 +54,19 @@ watch(
         }
 
     },
-    { immediate: true ,deep:true}
+    { immediate: true, deep: true }
 )
 
-function getArticlesByTags(){
-    getArticlesByTagsApi().then((res)=>{
-            console.log(res)
-            articleList.value = res.data
-            console.log(articleList)
-        })
+function getArticlesByTags() {
+    getArticlesByTagsApi().then((res) => {
+        console.log(res)
+        articleList.value = res.data
+        console.log(articleList)
+    })
 }
 
 
-function showMultipleTableRef(){
+function showMultipleTableRef() {
     console.log(multipleTableRef)
 }
 
@@ -74,5 +74,4 @@ function showMultipleTableRef(){
 </script>
 
 
-<style>
-</style>
+<style></style>
